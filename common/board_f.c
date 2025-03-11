@@ -211,7 +211,7 @@ static int print_cpuinfo(void)
 
 static int announce_dram_init(void)
 {
-	puts("DRAM:  ");
+	printf("DRAM:  ");
 	return 0;
 }
 
@@ -233,7 +233,7 @@ static int show_dram_config(void)
 
 	print_size(size, "");
 	board_add_ram_info(0);
-	putc('\n');
+	printf("\n");
 
 	return 0;
 }
@@ -742,6 +742,10 @@ static int jump_to_copy(void)
 	arch_setup_gd(gd->new_gd);
 	board_init_f_r_trampoline(gd->start_addr_sp);
 #else
+	#ifdef CONFIG_NOT_RELOC_TEXT_SECTION
+	gd->relocaddr = CONFIG_SYS_TEXT_BASE;
+	#endif
+
 	relocate_code(gd->start_addr_sp, gd->new_gd, gd->relocaddr);
 #endif
 

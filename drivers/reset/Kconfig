@@ -212,4 +212,18 @@ config RESET_DRA7
 	help
 	  Support for TI DRA7-RESET subsystem. Basic Assert/Deassert
 	  is supported.
+
+config RESET_KY_K1PRO
+	bool "Support for KY's K1-PRO Reset driver"
+	depends on DM_RESET
+	help
+	  Support for KY's K1-PRO Reset system. Basic Assert/Deassert
+	  is supported.
+
+config RESET_KY_X1
+	bool "Support for KY's X1 Reset driver"
+	depends on DM_RESET
+	help
+	  Support for KY's X1 Reset system. Basic Assert/Deassert
+	  is supported.
 endmenu

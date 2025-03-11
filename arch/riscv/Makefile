@@ -17,6 +17,12 @@ endif
 ifeq ($(CONFIG_RISCV_ISA_C),y)
 	ARCH_C = c
 endif
+ifeq ($(CONFIG_RISCV_ISA_DOUBLE_FLOAT),y)
+	ARCH_F = fd
+endif
+ifeq ($(CONFIG_RISCV_ISA_ZICBOM),y)
+	ARCH_EXTENTION = _zicbom
+endif
 ifeq ($(CONFIG_CMODEL_MEDLOW),y)
 	CMODEL = medlow
 endif
@@ -24,8 +30,12 @@ ifeq ($(CONFIG_CMODEL_MEDANY),y)
 	CMODEL = medany
 endif
 
-ARCH_FLAGS = -march=$(ARCH_BASE)$(ARCH_A)$(ARCH_C) -mabi=$(ABI) \
-	     -mcmodel=$(CMODEL)
+ifeq ($(CONFIG_KY_X60),y)
+	KY_X60_EXTENTION = _zba_zbb_zbc_zbs_zicsr_zifencei
+endif
+
+ARCH_FLAGS = -march=$(ARCH_BASE)$(ARCH_A)$(ARCH_F)$(ARCH_C)$(ARCH_EXTENTION)$(KY_X60_EXTENTION) -mabi=$(ABI) \
+		-mcmodel=$(CMODEL)
 
 PLATFORM_CPPFLAGS	+= $(ARCH_FLAGS)
 CFLAGS_EFI		+= $(ARCH_FLAGS)
@@ -33,5 +43,6 @@ CFLAGS_EFI		+= $(ARCH_FLAGS)
 head-y := arch/riscv/cpu/start.o
 
 libs-y += arch/riscv/cpu/
+libs-y += arch/riscv/kernel/
 libs-y += arch/riscv/cpu/$(CPU)/
 libs-y += arch/riscv/lib/

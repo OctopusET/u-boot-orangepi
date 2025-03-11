@@ -23,6 +23,7 @@ obj-$(CONFIG_CMD_BOOTDEV) += bootdev.o
 obj-$(CONFIG_CMD_BOOTFLOW) += bootflow.o
 obj-$(CONFIG_CMD_BOOTMETH) += bootmeth.o
 obj-$(CONFIG_CMD_SOURCE) += source.o
+obj-$(CONFIG_CMD_BATTERY) += battery.o
 obj-$(CONFIG_CMD_BCB) += bcb.o
 obj-$(CONFIG_CMD_BDI) += bdinfo.o
 obj-$(CONFIG_CMD_BIND) += bind.o
@@ -193,6 +194,8 @@ obj-$(CONFIG_CMD_MBR) += mbr.o
 obj-$(CONFIG_CMD_ETHSW) += ethsw.o
 obj-$(CONFIG_CMD_AXI) += axi.o
 obj-$(CONFIG_CMD_PVBLOCK) += pvblock.o
+
+obj-$(CONFIG_KY_FLASH) += ky_flash.o
 
 # Power
 obj-$(CONFIG_CMD_PMIC) += pmic.o
