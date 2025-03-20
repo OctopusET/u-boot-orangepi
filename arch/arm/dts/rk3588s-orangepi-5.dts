@@ -52,6 +52,19 @@
 		startup-delay-us = <50000>;
 		vin-supply = <&vcc5v0_sys>;
 	};
+
+	gpio-leds {
+		u-boot,dm-pre-reloc;
+		compatible = "gpio-leds";
+		status = "okay";
+
+		act-led {
+			u-boot,dm-pre-reloc;
+			gpios=<&gpio1 RK_PA2 GPIO_ACTIVE_HIGH>;
+			label = "status_led";
+			default-state = "off";
+		};
+	};
 };
 
 #if 0
@@ -181,4 +194,10 @@
 	u-boot,dm-pre-reloc;
 	dr_mode = "host";
 	status = "okay";
+};
+
+&sfc {
+	u-boot,dm-pre-reloc;
+        pinctrl-names = "default";
+        pinctrl-0 = <&fspim0_pins>;
 };

@@ -64,6 +64,24 @@
 		regulator-always-on;
 		vin-supply = <&vcc5v0_sys>;
 	};
+
+	leds: gpio-leds {
+		u-boot,dm-pre-reloc;
+		compatible = "gpio-leds";
+		status = "okay";
+
+		blue_led@1 {
+			u-boot,dm-pre-reloc;
+			gpios = <&gpio3 RK_PA6 GPIO_ACTIVE_HIGH>;
+			label = "blue_led";
+		};
+
+		green_led@2 {
+			u-boot,dm-pre-reloc;
+			gpios = <&gpio3 RK_PB1 GPIO_ACTIVE_HIGH>;
+			label = "green_led";
+		};
+	};
 };
 
 &u2phy0 {

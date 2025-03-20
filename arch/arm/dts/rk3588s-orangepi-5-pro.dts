@@ -51,6 +51,24 @@
 		gpio = <&gpio3 RK_PB7 GPIO_ACTIVE_HIGH>;
 		vin-supply = <&vcc5v0_sys>;
 	};
+
+	leds: gpio-leds {
+		u-boot,dm-pre-reloc;
+		compatible = "gpio-leds";
+		status = "okay";
+
+		blue_led@1 {
+			u-boot,dm-pre-reloc;
+			gpios = <&gpio1 RK_PC6 GPIO_ACTIVE_HIGH>;
+			label = "blue_led";
+		};
+
+		green_led@2 {
+			u-boot,dm-pre-reloc;
+			gpios = <&gpio1 RK_PC2 GPIO_ACTIVE_HIGH>;
+			label = "green_led";
+		};
+	};
 };
 
 &u2phy0 {
@@ -173,4 +191,10 @@
 &combphy2_psu {
 	u-boot,dm-pre-reloc;
         status = "okay";
+};
+
+&sfc {
+	u-boot,dm-pre-reloc;
+        pinctrl-names = "default";
+        pinctrl-0 = <&fspim0_pins>;
 };
