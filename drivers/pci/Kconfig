@@ -133,6 +133,20 @@ config PCIE_DW_SIFIVE
 	  Say Y here if you want to enable PCIe controller support on
 	  FU740.
 
+config PCIE_DW_K1PRO
+	bool "Enable Ky k1pro PCIe"
+	select PCIE_DW_COMMON
+	help
+	  Say Y here if you want to enable PCIe controller support on
+	  Ky SoCs.
+
+config PCIE_DW_X1
+	bool "Enable Ky x1 PCIe"
+	select PCIE_DW_COMMON
+	help
+	  Say Y here if you want to enable PCIe controller support on
+	  Ky x1 SoCs.
+
 config SYS_FSL_PCI_VER_3_X
 	bool
 

@@ -30,7 +30,7 @@ static int spi_flash_probe_slave(struct spi_flash *flash)
 
 	/* Setup spi_slave */
 	if (!spi) {
-		printf("SF: Failed to set up slave\n");
+		pr_err("SF: Failed to set up slave\n");
 		return -ENODEV;
 	}
 

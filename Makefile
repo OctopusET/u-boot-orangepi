@@ -798,6 +798,10 @@ include scripts/Makefile.extrawarn
 KBUILD_CPPFLAGS += $(KCPPFLAGS)
 KBUILD_AFLAGS += $(KAFLAGS)
 KBUILD_CFLAGS += $(KCFLAGS)
+KBUILD_CFLAGS += $(call cc-option, -Werror)
+
+KBUILD_LDFLAGS  += -z noexecstack
+KBUILD_LDFLAGS  += $(call ld-option,--no-warn-rwx-segments)
 
 KBUILD_HOSTCFLAGS += $(if $(CONFIG_TOOLS_DEBUG),-g)
 
@@ -1004,6 +1008,10 @@ INPUTS-y += u-boot.itb
 else
 INPUTS-y += u-boot.img
 endif
+endif
+
+ifeq ($(CONFIG_TARGET_KY_X1),y)
+INPUTS-y += u-boot-opensbi.itb
 endif
 
 INPUTS-$(CONFIG_X86) += u-boot-x86-start16.bin u-boot-x86-reset16.bin \
@@ -2129,6 +2137,20 @@ System.map:	u-boot
 		@$(call SYSTEM_MAP,$<) > $@
 
 #########################################################################
+
+ifeq ($(CONFIG_TARGET_KY_X1),y)
+sbi_srcdir := $(CURDIR)/opensbi
+sbi_wrkdir := $(sbi_srcdir)/build
+sbi_bin := $(sbi_wrkdir)/platform/generic/firmware/fw_dynamic.bin
+
+$(sbi_bin): u-boot.bin
+	CROSS_COMPILE="$(CROSS_COMPILE)" PLATFORM_DEFCONFIG=k1_defconfig PLATFORM=generic ${MAKE} -C $(sbi_srcdir)
+	mv $(sbi_bin) .
+	rm -rf $(sbi_wrkdir)
+
+u-boot-opensbi.itb: uboot-opensbi.its $(sbi_bin)
+	tools/mkimage -f uboot-opensbi.its -r u-boot-opensbi.itb
+endif
 
 # ARM relocations should all be R_ARM_RELATIVE (32-bit) or
 # R_AARCH64_RELATIVE (64-bit).

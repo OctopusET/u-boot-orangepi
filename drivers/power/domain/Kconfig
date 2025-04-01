@@ -105,4 +105,9 @@ config ZYNQMP_POWER_DOMAIN
 	  configuration and it is extended at run time. Then enabling
 	  the driver will ensure that PMUFW enable access to requested IP.
 
+config X1_POWER_DOMAIN
+	bool "Enable the X1 Power domain driver"
+	depends on POWER_DOMAIN
+	help
+	  Generic power domain implementation for X1 devices.
 endmenu

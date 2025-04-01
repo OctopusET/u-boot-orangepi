@@ -51,6 +51,10 @@ source "drivers/power/pmic/Kconfig"
 
 source "drivers/power/regulator/Kconfig"
 
+source "drivers/power/battery/Kconfig"
+
+source "drivers/power/charger/Kconfig"
+
 choice
 	prompt "Select Sunxi PMIC Variant"
 	depends on ARCH_SUNXI
@@ -450,5 +454,17 @@ config SPL_POWER_I2C
 
 	  Not to be used for new designs and existing ones should be moved to
 	  the new PMIC interface based on driver model.
+
+endif
+
+if SPL_POWER
+
+config SPL_KY_POWER
+       bool "Power support in SPL for SPM8XX"
+       depends on SPL
+       help
+         Note: This is a legacy option. Use SPL_DM_PMIC instead.
+
+         Enable support for power control in SPL for SPM8XX PMICs.
 
 endif
